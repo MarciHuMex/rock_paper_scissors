@@ -4,9 +4,6 @@ function getComputerChoice () {
     return choices[randomChoice];
 }
 
-var computerChoice = getComputerChoice();
-console.log("Computer's choice: " + computerChoice);
-
 function getPlayerSelection() {
     const input = prompt("Choose Rock, Paper or Scissors:")
     if(input) {
@@ -16,5 +13,25 @@ function getPlayerSelection() {
     }
 }
 
+function playRound (playerSelection, computerSelection) {
+        if(playerSelection === computerSelection) {
+            return "Its a tie! Both choose " +playerSelection+ ".";
+        }
+        if(
+            (playerSelection==="Rock" && computerSelection === "Scissors") ||
+            (playerSelection==="Paper" && computerSelection === "Rock") ||
+            (playerSelection==="Scissors" && computerSelection==="Paper")
+        ) {
+            return "You Win " +playerSelection+ " beats " +computerSelection+ ".";
+        }
+        return "You Lose! " +computerSelection+ " beats " +playerSelection+ ".";
+}
+
 var playerChoice = getPlayerSelection();
-console.log(playerChoice);
+console.log("Player's choice:" + playerChoice);
+
+var computerChoice = getComputerChoice();
+console.log("Computer's choice: " + computerChoice);
+
+var result = playRound(computerChoice,playerChoice);
+console.log(result);
