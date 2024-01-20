@@ -29,16 +29,42 @@ function playRound (playerSelection, computerSelection) {
         return "You Lose! " +computerSelection+ " beats " +playerSelection+ ".";
 }
 
-var playerChoice = getPlayerSelection();
+function game() {
+    var playerScore = 0;
+    var computerScore = 0;
 
-if (playerChoice!== null) {
-    console.log("Player's choice:" + playerChoice);
+    for (var round = 1; round <=5; round++) {
+        console.log("Round " + round);
+
+        var playerChoice = getPlayerSelection();
+
+        if (playerChoice!== null) {
+            console.log("Player's choice:" + playerChoice);
     
-    var computerChoice = getComputerChoice();
-    console.log("Computer's choice: " + computerChoice);
+            var computerChoice = getComputerChoice();
+            console.log("Computer's choice: " + computerChoice);
 
-    var result = playRound(computerChoice,playerChoice);
-    console.log(result);
-} else {
-    console.log("Invalid input. Cannot play a round.");
+            var result = playRound(playerChoice,computerChoice);
+            console.log(result);
+
+            if(result.includes("You Win")) {
+                playerScore++;
+            } else if (result.includes("You Lose")) {
+                computerScore++;
+            }
+        } else {
+            console.log("Invalid input. Skipping round.");
+        }
+        console.log("Player Score: " + playerScore + " | Computer Score: " + computerScore);
+        console.log("-------------------------------")
+        }       
+
+        if (playerScore>computerScore) {
+            console.log("You won the game! Congratulation!");
+        } else if(playerScore<computerScore) {
+            console.log("Sorry you lost the game :(");
+        } else {
+            console.log("It's a tie! The game ended with a draw.")
+        }
 }
+game();
