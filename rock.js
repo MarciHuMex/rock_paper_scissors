@@ -30,9 +30,10 @@ function playRound (playerSelection, computerSelection) {
 }
 
 var playerChoice = getPlayerSelection();
-console.log("Player's choice:" + playerChoice);
 
 if (playerChoice!== null) {
+    console.log("Player's choice:" + playerChoice);
+    
     var computerChoice = getComputerChoice();
     console.log("Computer's choice: " + computerChoice);
 
