@@ -5,8 +5,10 @@ function getComputerChoice () {
 }
 
 function getPlayerSelection() {
+    const validChoices =["Rock", "Paper", "Scissors"];
+    const lowercaseValidChoices =validChoices.map(choice => choice.toLowerCase());
     const input = prompt("Choose Rock, Paper or Scissors:")
-    if(input) {
+    if(input && lowercaseValidChoices.includes(input.toLowerCase())) {
         return input.toLowerCase().charAt(0).toUpperCase() + input.slice(1).toLowerCase();
     } else {
         return null;
@@ -30,8 +32,12 @@ function playRound (playerSelection, computerSelection) {
 var playerChoice = getPlayerSelection();
 console.log("Player's choice:" + playerChoice);
 
-var computerChoice = getComputerChoice();
-console.log("Computer's choice: " + computerChoice);
+if (playerChoice!== null) {
+    var computerChoice = getComputerChoice();
+    console.log("Computer's choice: " + computerChoice);
 
-var result = playRound(computerChoice,playerChoice);
-console.log(result);
+    var result = playRound(computerChoice,playerChoice);
+    console.log(result);
+} else {
+    console.log("Invalid input. Cannot play a round.");
+}
