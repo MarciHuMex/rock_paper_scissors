@@ -67,4 +67,4 @@ function game() {
             console.log("It's a tie! The game ended with a draw.")
         }
 }
-game();
+//game();
