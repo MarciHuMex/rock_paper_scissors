@@ -4,17 +4,6 @@ function getComputerChoice () {
     return choices[randomChoice];
 }
 
-function getPlayerSelection() {
-    const validChoices =["Rock", "Paper", "Scissors"];
-    const lowercaseValidChoices =validChoices.map(choice => choice.toLowerCase());
-    const input = prompt("Choose Rock, Paper or Scissors:")
-    if(input && lowercaseValidChoices.includes(input.toLowerCase())) {
-        return input.toLowerCase().charAt(0).toUpperCase() + input.slice(1).toLowerCase();
-    } else {
-        return null;
-    }
-}
-
 function playRound (playerSelection, computerSelection) {
         if(playerSelection === computerSelection) {
             return "Its a tie! Both choose " +playerSelection+ ".";
@@ -29,42 +18,47 @@ function playRound (playerSelection, computerSelection) {
         return "You Lose! " +computerSelection+ " beats " +playerSelection+ ".";
 }
 
+function updateScores(playerScore, computerScore){
+    document.getElementById("playerScore").textContent = playerScore;
+    document.getElementById("computerScore").textContent = computerScore;
+}
+
+function updateResults(result) {
+    document.getElementById("results").textContent = result;
+}
+
 function game() {
     var playerScore = 0;
     var computerScore = 0;
 
-    for (var round = 1; round <=5; round++) {
-        console.log("Round " + round);
-
-        var playerChoice = getPlayerSelection();
-
-        if (playerChoice!== null) {
-            console.log("Player's choice:" + playerChoice);
-    
+    document.querySelectorAll("#choices button").forEach(button => {
+        button.addEventListener("click", function() {
+            var playerChoice = button.textContent;
             var computerChoice = getComputerChoice();
-            console.log("Computer's choice: " + computerChoice);
-
             var result = playRound(playerChoice,computerChoice);
-            console.log(result);
 
-            if(result.includes("You Win")) {
+            if (result.includes("You Win")) {
                 playerScore++;
-            } else if (result.includes("You Lose")) {
+            } else if(result.includes("You Lose")) {
                 computerScore++;
             }
-        } else {
-            console.log("Invalid input. Skipping round.");
-        }
-        console.log("Player Score: " + playerScore + " | Computer Score: " + computerScore);
-        console.log("-------------------------------")
-        }       
+            updateScores(playerScore,computerScore);
+            updateResults(result);
 
-        if (playerScore>computerScore) {
-            console.log("You won the game! Congratulation!");
-        } else if(playerScore<computerScore) {
-            console.log("Sorry you lost the game :(");
-        } else {
-            console.log("It's a tie! The game ended with a draw.")
-        }
-}
-//game();
+            if(playerScore === 5 || computerScore === 5) {
+                if(playerScore>computerScore) {
+                    alert("You won the game! Felicidades!");
+                } else if(playerScore<computerScore) {
+                    alert("You lost the game perdón :(");
+                } else {
+                    alert("Its a tie! The game ended with a draw.");
+                }
+                //Reset the scores for new game
+                playerScore=0;
+                computerScore=0;
+                updateScores(playerScore,computerScore);
+            }
+        });
+        });
+    }
+game();
